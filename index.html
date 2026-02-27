@@ -2421,6 +2421,10 @@ function runRealScan() {
 
     // Store followed playlists data for saved playlists section
     window._realFollowedPlaylists = data.followedPlaylists || [];
+    if (data.followedPlaylists && data.followedPlaylists.length > 0) {
+      document.getElementById('savedPlaylistsSection').style.display = 'block';
+      renderSavedPlaylists();
+    }
 
     var total     = data.totalScanned;
     var flagged   = allTracks.filter(function(t) { return t.risk !== 'LOW'; }).length;
@@ -2428,7 +2432,7 @@ function runRealScan() {
 
     document.getElementById('statTotal').textContent   = total;
     document.getElementById('statFlagged').textContent = flagged;
-    document.getElementById('statClean').textContent   = total - allTracks.length;
+    document.getElementById('statClean').textContent   = total - flagged;
     document.getElementById('progressWrap').style.display = 'none';
     document.getElementById('statsRow').style.display  = 'grid';
     document.getElementById('scanSub').textContent = 'Scanned ' + total + ' tracks. ' + (autoRemoved ? autoRemoved + ' removed automatically.' : '');
@@ -2566,15 +2570,22 @@ function renderPlaylistScores(playlists, tracks) {
 // ---- SAVED PLAYLISTS ----
 function renderSavedPlaylists() {
   var container = document.getElementById('savedPlaylistsList');
-  // Update unfollow-all count (only count playlists not yet unfollowed)
-  var remaining = DEMO_SAVED.filter(function(p, i) {
+  // Use real followed playlists if available, otherwise empty
+  var playlistData = (window._realFollowedPlaylists && window._realFollowedPlaylists.length > 0)
+    ? window._realFollowedPlaylists
+    : [];
+  var remaining = playlistData.filter(function(p, i) {
     return !(savedPlaylistState[i] && savedPlaylistState[i].unsaved);
   }).length;
   var countEl = document.getElementById('unfollowAllCount');
   if (countEl) countEl.textContent = remaining;
   var bar = document.getElementById('unfollowAllBar');
   if (bar) bar.style.display = remaining === 0 ? 'none' : 'flex';
-  container.innerHTML = DEMO_SAVED.map(function(p, i) {
+  if (playlistData.length === 0) {
+    container.innerHTML = '<div style="color:var(--muted);font-size:14px;padding:16px 0">No followed playlists with AI tracks found.</div>';
+    return;
+  }
+  container.innerHTML = playlistData.map(function(p, i) {
     var state   = savedPlaylistState[i] || { unsaved: false };
     savedPlaylistState[i] = state;
     var aiCount = p.aiTracks.length;
@@ -2614,8 +2625,7 @@ function renderSavedPlaylists() {
 }
 
 function unsavePlaylist(playlistIdx) {
-  // Call real backend if logged in
-  if (BACKEND_URL && !isDemo) {
+  if (BACKEND_URL) {
     var realPlaylists = window._realFollowedPlaylists || [];
     var p = realPlaylists[playlistIdx];
     if (p && p.id) {
