@@ -1144,7 +1144,7 @@ body.dark .stats-cell-val.c-blue { color: #9090ff; }
       <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 19V6l12-3v13M9 19c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm12-3c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z"/></svg>
       Connect your Spotify (it's free)
     </button>
-    <button class="btn-secondary" onclick="runDemo()">Try it with demo data &#8594;</button>
+    
   </div>
 
   <!-- ALL-TIME SIGNUP COUNTER -->
@@ -1255,9 +1255,9 @@ body.dark .stats-cell-val.c-blue { color: #9090ff; }
   <div class="scan-header">
     <div>
       <div class="scan-title">Scan Results</div>
-      <div class="scan-sub" id="scanSub">Run the demo or connect Spotify to start.</div>
+      <div class="scan-sub" id="scanSub">Connect Spotify to start your scan.</div>
     </div>
-    <button class="btn-primary" id="rescanBtn" onclick="runDemo()" style="display:none">&#8635; Rescan demo</button>
+    <button class="btn-primary" id="rescanBtn" onclick="runDemo()" style="display:none">&#8635; Rescan</button>
   </div>
 
   <!-- AUTO-SKIP. always on, no toggle -->
@@ -1325,8 +1325,7 @@ body.dark .stats-cell-val.c-blue { color: #9090ff; }
       <div class="removal-banner-text" id="removalBannerText"></div>
       <button class="undo-btn" onclick="undoRemoval()">&#8617; Undo</button>
     </div>
-    <div class="demo-banner" id="demoBanner" style="display:none">
-      Demo mode. Sample data only. <a href="#" onclick="navTo('screen-setup','nav-scan');return false;" style="color:var(--accent)">Connect Spotify &#8594;</a>
+    <div id="demoBanner" style="display:none"
     </div>
     <div class="filter-row">
       <!-- SEARCH BAR -->
@@ -1351,7 +1350,7 @@ body.dark .stats-cell-val.c-blue { color: #9090ff; }
       </button>
     </div>
     <div class="track-list" id="trackList">
-      <div class="empty">Run the demo or connect Spotify to see results.</div>
+      <div class="empty">Connect Spotify to see results.</div>
     </div>
     <div id="flaggedDoneBar" style="display:none;padding:18px 0 8px;text-align:center">
       <button class="btn-primary" onclick="doneWithFlagged()" style="min-width:180px">
@@ -2067,11 +2066,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);
     // Navigate to scan and run real scan
     navTo('screen-scan', 'nav-scan');
-    if (BACKEND_URL) {
-      runRealScan();
-    } else {
-      runDemo(); // fallback if backend not wired yet
-    }
+    runRealScan();
     return;
   }
 
@@ -2187,49 +2182,51 @@ function isGloballyBlocked(track) {
 // ---- AUTO-SKIP (always on) ----
 // In production: polls /api/now-playing every second.
 // If track ID is in GLOBAL_SONG_BLOCKLIST or flagged for this user, calls /api/skip.
-// Requires Spotify Premium + Web Playback SDK or active device.
-// Demo mode: cycles through demo tracks to show skip behaviour.
+// Real now-playing monitor — polls the backend every 10 seconds
 function startSkipMonitor() {
   if (skipRunning) return;
   skipRunning = true;
-  skipDemoIdx = 0;
   var nowPlayingEl = document.getElementById('skipNowPlaying');
   var nameEl       = document.getElementById('skipTrackName');
   var statusEl     = document.getElementById('skipStatus');
 
-  var demoTracks = [
-    {id:'safe1', name:'Night Drive',   artist:'RealArtist',  risk:'CLEAN'},
-    {id:'t1',    name:'Ethereal Dreams', artist:'SynthWave AI', risk:'HIGH'},
-    {id:'safe2', name:'Blue Morning',  artist:'Clara Voss',  risk:'CLEAN'},
-    {id:'t4',    name:'Focus State Vol.12', artist:'BrainWave Studio', risk:'HIGH'},
-    {id:'safe3', name:'Open Water',    artist:'Aldous Harding', risk:'CLEAN'},
-    {id:'t3',    name:'Soft Morning',  artist:'Ambient.AI',  risk:'HIGH'},
-  ];
+  // Hide until we have real data
+  if (nowPlayingEl) nowPlayingEl.style.display = 'none';
 
-  if (nowPlayingEl) nowPlayingEl.style.display = 'flex';
-
-  function playNext() {
+  async function pollNowPlaying() {
     if (!skipRunning) return;
-    var t = demoTracks[skipDemoIdx % demoTracks.length];
-    skipDemoIdx++;
-    if (nameEl) nameEl.textContent = t.name + ' \u2014 ' + t.artist;
+    try {
+      var res = await fetch(BACKEND_URL + '/api/nowplaying', { credentials: 'include' });
+      if (!res.ok) throw new Error('not ok');
+      var data = await res.json();
 
-    if (t.risk === 'HIGH' || t.risk === 'MEDIUM') {
-      if (statusEl) { statusEl.textContent = 'skipping\u2026'; statusEl.className = 'skip-status skipping'; }
-      skipInterval = setTimeout(function() {
-        if (!skipRunning) return;
-        if (statusEl) { statusEl.textContent = 'watching'; statusEl.className = 'skip-status'; }
-        var next = demoTracks[skipDemoIdx % demoTracks.length];
-        skipDemoIdx++;
-        if (nameEl) nameEl.textContent = next.name + ' \u2014 ' + next.artist;
-        skipInterval = setTimeout(playNext, 4500);
-      }, 800);
-    } else {
-      if (statusEl) { statusEl.textContent = 'watching'; statusEl.className = 'skip-status'; }
-      skipInterval = setTimeout(playNext, 4500);
+      if (data.playing && data.track) {
+        if (nowPlayingEl) nowPlayingEl.style.display = 'flex';
+        if (nameEl) nameEl.textContent = data.track.name + ' \u2014 ' + data.track.artist;
+
+        if (data.track.risk === 'HIGH' || data.track.risk === 'GLOBAL') {
+          if (statusEl) { statusEl.textContent = 'skipping\u2026'; statusEl.className = 'skip-status skipping'; }
+          // Attempt to skip via backend
+          fetch(BACKEND_URL + '/api/skip', {
+            method: 'POST',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ trackId: data.track.id }),
+          }).catch(function() {});
+        } else {
+          if (statusEl) { statusEl.textContent = 'watching'; statusEl.className = 'skip-status'; }
+        }
+      } else {
+        // Nothing playing — hide the widget
+        if (nowPlayingEl) nowPlayingEl.style.display = 'none';
+      }
+    } catch(e) {
+      // Silently fail — backend unreachable or not logged in
+      if (nowPlayingEl) nowPlayingEl.style.display = 'none';
     }
+    skipInterval = setTimeout(pollNowPlaying, 10000);
   }
-  playNext();
+  pollNowPlaying();
 }
 
 // ---- CONNECT ----
@@ -2238,15 +2235,9 @@ function startSkipMonitor() {
 //   window.location.href = BACKEND_URL + '/auth/login';
 // where BACKEND_URL is your deployed server (e.g. https://realsongcheck.up.railway.app)
 // Set this to your Railway URL when deployed, e.g. 'https://realsongcheck-production.up.railway.app'
-var BACKEND_URL = 'https://web-production-1ca53.up.railway.app';
+var BACKEND_URL = 'https://api.realsongcheck.com';
 function handleConnectClick() {
-  if (BACKEND_URL) {
-    window.location.href = BACKEND_URL + '/auth/login';
-  } else {
-    // Demo mode fallback while backend isn't live
-    navTo('screen-scan', 'nav-scan');
-    runDemo();
-  }
+  window.location.href = BACKEND_URL + '/auth/login';
 }
 
 // ---- DISCONNECT MODAL (multi-step) ----
