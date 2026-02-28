@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — RealSongCheck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f5f4ef; --surface: #ffffff; --border: #e2e0d9;
+  --text: #141412; --muted: #636360; --accent: #4a8c00;
+}
+body {
+  background: var(--bg); color: var(--text);
+  font-family: 'Lato', sans-serif; min-height: 100vh;
+  line-height: 1.7;
+}
+nav {
+  position: sticky; top: 0; background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px; height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  z-index: 50;
+}
+.logo {
+  font-family: 'DM Serif Display', serif; font-size: 20px;
+  text-decoration: none; color: var(--text);
+  display: flex; align-items: center; gap: 8px;
+}
+.logo-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; }
+.logo span { color: var(--accent); font-style: italic; }
+.back-link {
+  font-size: 13px; color: var(--muted); text-decoration: none;
+  border: 1px solid var(--border); border-radius: 6px;
+  padding: 6px 14px; transition: all 0.15s;
+}
+.back-link:hover { color: var(--text); border-color: var(--text); }
+.container {
+  max-width: 760px; margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+.page-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1.1; margin-bottom: 8px;
+}
+.effective {
+  font-size: 13px; color: var(--muted); margin-bottom: 40px;
+}
+.notice {
+  background: #fff8e1; border: 1px solid #f0d060;
+  border-radius: 8px; padding: 16px 20px;
+  margin-bottom: 40px; font-size: 14px; color: #7c4a00;
+  line-height: 1.6;
+}
+.notice strong { display: block; margin-bottom: 4px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px; margin: 48px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+h3 {
+  font-size: 15px; font-weight: 700;
+  margin: 24px 0 8px; color: var(--accent);
+}
+p { font-size: 15px; color: #333; margin-bottom: 14px; }
+ul {
+  margin: 0 0 16px 0; padding-left: 20px;
+}
+ul li {
+  font-size: 15px; color: #333;
+  margin-bottom: 8px; line-height: 1.6;
+}
+.caps {
+  font-size: 14px; font-weight: 700;
+  color: var(--text); line-height: 1.6;
+  margin-bottom: 14px;
+}
+.divider {
+  border: none; border-top: 1px solid var(--border);
+  margin: 40px 0;
+}
+footer {
+  border-top: 1px solid var(--border);
+  padding: 24px; text-align: center;
+  font-size: 12px; color: var(--muted);
+}
+footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/"><div class="logo-dot"></div>Real<span>Song</span>Check</a>
+  <a class="back-link" href="/">← Back to app</a>
+</nav>
+
+<div class="container">
+  <p class="effective">Terms of Service</p>
+  <h1 class="page-title">Terms of Service</h1>
+  <p class="effective">Effective Date: March 1, 2026</p>
+
+  <div class="notice">
+    <strong>Important — Please Read Carefully</strong>
+    These Terms constitute a legally binding agreement. By connecting your Spotify account or using any part of the Service, you agree to be bound by these Terms in full.
+  </div>
+
+  <p class="caps">BY CLICKING "I UNDERSTAND — CONNECT SPOTIFY," YOU ACKNOWLEDGE THAT YOU HAVE READ, UNDERSTOOD, AND AGREED TO THESE TERMS, INCLUDING THE DISCLAIMERS, LIMITATIONS OF LIABILITY, AND INDEMNIFICATION PROVISIONS BELOW.</p>
+
+  <hr class="divider">
+
+  <h2>1. Description of Service</h2>
+  <p>RealSongCheck is a user-directed music library management tool. The Service analyses the contents of your personal Spotify library using algorithmic scoring methods and presents results to you. You then choose what actions, if any, to take. RealSongCheck does not make decisions on your behalf without your explicit authorisation.</p>
+  <p>The Service provides:</p>
+  <ul>
+    <li>Probabilistic algorithmic analysis of tracks in your Spotify library</li>
+    <li>A risk score and supporting signals for each track, presented as informational output</li>
+    <li>Tools enabling you to remove, flag, trust, or block tracks and artists within your own Spotify account</li>
+    <li>Optional automated actions that you explicitly enable, including automatic removal of high-risk tracks</li>
+  </ul>
+  <p>All actions taken within your Spotify account are taken at your direction and on your behalf. RealSongCheck acts as your agent in executing actions you have authorised.</p>
+
+  <hr class="divider">
+
+  <h2>2. Probabilistic Nature of Results — No Guarantee of Accuracy</h2>
+  <p class="caps">THE SERVICE DOES NOT AND CANNOT GUARANTEE THAT ANY TRACK OR ARTIST FLAGGED BY THE SERVICE IS AI-GENERATED, OR THAT ANY TRACK OR ARTIST CLEARED BY THE SERVICE IS HUMAN-MADE.</p>
+  <p>All scores, flags, risk ratings, and classifications produced by RealSongCheck are:</p>
+  <ul>
+    <li>Probabilistic algorithmic opinions, not verified facts</li>
+    <li>Based on indirect signals including but not limited to: distributor information, release patterns, artist metadata, track naming conventions, and other observable data</li>
+    <li>Subject to error, including both false positives (human-made content incorrectly flagged) and false negatives (AI-generated content not detected)</li>
+    <li>Not representations of fact about any artist, label, distributor, or rights holder</li>
+  </ul>
+  <p>You acknowledge and accept that the Service may flag music created by human artists. You understand that acting on these results — including removing tracks from your library — is your own decision and carries the risk of affecting music you may wish to keep.</p>
+
+  <hr class="divider">
+
+  <h2>3. User-Directed Actions and Your Responsibility</h2>
+  <h3>3.1 You Are the Decision-Maker</h3>
+  <p>Every action taken within your Spotify account through RealSongCheck is a user-directed action. You retain full control and responsibility for:</p>
+  <ul>
+    <li>Which tracks and artists are removed from your library</li>
+    <li>Which distributors, labels, and artists are added to your personal or global block lists</li>
+    <li>Enabling or disabling automated features such as auto-removal or auto-skip</li>
+    <li>Any and all consequences of actions taken through the Service</li>
+  </ul>
+  <h3>3.2 Authorisation of Automated Features</h3>
+  <p>If you enable automated features (such as automatic removal of high-risk tracks), you are explicitly authorising RealSongCheck to perform those actions on your behalf within your Spotify account, subject to the risk thresholds you have set or accepted. You understand that automated actions may affect tracks before you have individually reviewed them.</p>
+  <h3>3.3 Your Acceptance of RealSongCheck's Scoring Methodology</h3>
+  <p>By using the Service, you acknowledge and agree that:</p>
+  <ul>
+    <li>RealSongCheck applies its own proprietary scoring methodology to evaluate tracks in your library</li>
+    <li>You authorise RealSongCheck to apply this methodology on your behalf when performing actions in your Spotify account</li>
+    <li>The categories, thresholds, and definitions used by the Service — including the definition of what constitutes "AI-generated music" for the purposes of the Service — are determined by RealSongCheck at its sole discretion</li>
+    <li>You accept these definitions and methodologies as the basis on which the Service operates, while retaining the right to review, override, or ignore any individual result</li>
+  </ul>
+
+  <hr class="divider">
+
+  <h2>4. No Liability for Third-Party Content or Accounts</h2>
+  <h3>4.1 Artist and Rights Holder Claims</h3>
+  <p>RealSongCheck does not publish, distribute, or make available any artist's music. The Service only helps you manage your own personal Spotify library — content you have already saved or liked. The Service does not:</p>
+  <ul>
+    <li>Remove music from Spotify or any streaming platform</li>
+    <li>Make any public statement about any artist, label, or distributor</li>
+    <li>Publish or share any classification or flag beyond your personal account</li>
+    <li>Interfere with any artist's ability to distribute, monetise, or make available their music</li>
+  </ul>
+  <p>Any action taken through the Service affects only your personal library. An artist, label, or distributor cannot bring a claim against RealSongCheck arising from a user's personal decision to remove a track from their own saved library, as such actions fall entirely within the user's own rights as a Spotify subscriber.</p>
+  <h3>4.2 Spotify Account</h3>
+  <p>RealSongCheck is not affiliated with, endorsed by, or in any way officially connected with Spotify AB. Your use of RealSongCheck is subject to Spotify's own Terms of Service. We are not responsible for:</p>
+  <ul>
+    <li>Changes to Spotify's API, terms, or service that affect the functionality of RealSongCheck</li>
+    <li>Any suspension, restriction, or termination of your Spotify account, regardless of cause</li>
+    <li>Any data loss, playback issues, playlist changes, or other effects within your Spotify account</li>
+    <li>Any failure of Spotify's systems or our integration with them</li>
+  </ul>
+
+  <hr class="divider">
+
+  <h2>5. Disclaimer of Warranties</h2>
+  <p class="caps">THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. TO THE FULLEST EXTENT PERMITTED BY LAW, REALSONGCHECK EXPRESSLY DISCLAIMS ALL WARRANTIES, INCLUDING BUT NOT LIMITED TO:</p>
+  <ul>
+    <li>Implied warranties of merchantability, fitness for a particular purpose, and non-infringement</li>
+    <li>Any warranty that the Service will be uninterrupted, timely, secure, or error-free</li>
+    <li>Any warranty regarding the accuracy, completeness, or reliability of any results, scores, flags, or classifications produced by the Service</li>
+    <li>Any warranty that the Service will detect all AI-generated music, or that it will not flag human-made music</li>
+  </ul>
+  <p class="caps">YOU ASSUME ALL RISK ARISING FROM YOUR USE OF THE SERVICE AND ANY ACTIONS YOU TAKE BASED ON ITS OUTPUT.</p>
+
+  <hr class="divider">
+
+  <h2>6. Limitation of Liability</h2>
+  <p class="caps">TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, REALSONGCHECK AND ITS OWNERS, OPERATORS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES ARISING OUT OF OR RELATED TO YOUR USE OF THE SERVICE, INCLUDING BUT NOT LIMITED TO:</p>
+  <ul>
+    <li>Loss of data, including tracks, playlists, or library content removed through the Service</li>
+    <li>Loss of access to, or changes in, your Spotify account</li>
+    <li>Emotional distress arising from the removal of content from your library</li>
+    <li>Any claim by a third party including artists, labels, or distributors arising from your use of the Service</li>
+    <li>Any business losses, loss of revenue, or loss of goodwill</li>
+  </ul>
+  <p class="caps">IN NO EVENT SHALL REALSONGCHECK'S TOTAL AGGREGATE LIABILITY TO YOU EXCEED THE GREATER OF: (A) THE TOTAL AMOUNT YOU PAID TO REALSONGCHECK IN THE TWELVE MONTHS PRECEDING THE CLAIM, OR (B) ONE HUNDRED POUNDS STERLING (£100).</p>
+
+  <hr class="divider">
+
+  <h2>7. Indemnification</h2>
+  <p>You agree to indemnify, defend, and hold harmless RealSongCheck and its owners, operators, employees, affiliates, and agents from and against any and all claims, damages, losses, costs, and expenses (including reasonable legal fees) arising out of or relating to:</p>
+  <ul>
+    <li>Your use of the Service</li>
+    <li>Any actions taken within your Spotify account through or as a result of the Service</li>
+    <li>Your violation of these Terms</li>
+    <li>Any claim by a third party arising from actions you have taken using the Service, including any claim by an artist, label, or distributor whose music was removed from your library</li>
+    <li>Your violation of any third-party rights, including Spotify's Terms of Service</li>
+  </ul>
+
+  <hr class="divider">
+
+  <h2>8. Acceptable Use</h2>
+  <p>You agree not to use the Service to:</p>
+  <ul>
+    <li>Violate any applicable law or regulation</li>
+    <li>Circumvent, disable, or interfere with any security feature of the Service</li>
+    <li>Use the Service in any way that could damage, disable, overburden, or impair it</li>
+    <li>Attempt to gain unauthorised access to any part of the Service or its systems</li>
+    <li>Use the Service for any commercial purpose without our written consent</li>
+  </ul>
+  <p>We reserve the right to suspend or terminate your access to the Service at any time, with or without cause and with or without notice.</p>
+
+  <hr class="divider">
+
+  <h2>9. Privacy</h2>
+  <p>Your use of the Service is also governed by our <a href="/privacy" style="color:var(--accent)">Privacy Policy</a>. By using the Service, you consent to the collection and use of your data as described there.</p>
+
+  <hr class="divider">
+
+  <h2>10. Modifications to Terms</h2>
+  <p>We reserve the right to modify these Terms at any time. If we make material changes, we will notify you by updating the effective date at the top of this document. Your continued use of the Service after changes are posted constitutes your acceptance of the modified Terms.</p>
+
+  <hr class="divider">
+
+  <h2>11. Governing Law and Dispute Resolution</h2>
+  <p>These Terms shall be governed by and construed in accordance with the laws of England and Wales. Any dispute arising out of or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts of England and Wales.</p>
+  <p>You agree that any claim arising from your use of the Service must be brought within one (1) year of the event giving rise to the claim, or be permanently barred.</p>
+
+  <hr class="divider">
+
+  <h2>12. Severability</h2>
+  <p>If any provision of these Terms is found to be unenforceable or invalid, that provision will be limited or eliminated to the minimum extent necessary, and the remaining provisions will remain in full force and effect.</p>
+
+  <hr class="divider">
+
+  <h2>13. Entire Agreement</h2>
+  <p>These Terms, together with the Privacy Policy, constitute the entire agreement between you and RealSongCheck with respect to the Service and supersede all prior agreements and understandings.</p>
+
+  <hr class="divider">
+
+  <h2>14. Contact</h2>
+  <p>For questions about these Terms, contact us at: <a href="mailto:legal@realsongcheck.com" style="color:var(--accent)">legal@realsongcheck.com</a></p>
+</div>
+
+<footer>
+  <p>© 2026 RealSongCheck &nbsp;·&nbsp; <a href="/terms">Terms of Service</a> &nbsp;·&nbsp; <a href="/privacy">Privacy Policy</a></p>
+</footer>
+</body>
+</html>
