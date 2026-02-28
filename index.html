@@ -1084,6 +1084,31 @@ body.dark .stats-cell-val.c-blue { color: #9090ff; }
 </style>
 </head>
 <body>
+<!-- CONSENT MODAL -->
+<div id="consentModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.7);align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:12px;max-width:560px;width:90%;padding:36px;font-family:Lato,sans-serif;max-height:80vh;overflow-y:auto">
+    <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#2d6a2d;margin-bottom:8px">BEFORE YOU CONNECT</div>
+    <h2 style="font-size:20px;font-weight:700;color:#1a1a1a;margin:0 0 16px">Please read and agree to continue</h2>
+    <p style="font-size:14px;color:#333;line-height:1.6;margin-bottom:14px">RealSongCheck uses an <strong>algorithmic scoring system</strong> to identify music that may be AI-generated. Results are <strong>probabilistic opinions, not verified facts</strong>. The Service may flag music made by human artists, and may miss AI-generated music.</p>
+    <p style="font-size:14px;color:#333;line-height:1.6;margin-bottom:14px">By connecting your Spotify account, you confirm that you understand and agree:</p>
+    <ul style="font-size:13px;color:#333;line-height:1.8;margin:0 0 16px;padding-left:20px">
+      <li>Any tracks or artists removed, blocked, or flagged are <strong>removed at your own direction and at your own risk</strong>.</li>
+      <li>You accept full responsibility for all actions taken within your Spotify account through RealSongCheck.</li>
+      <li>RealSongCheck is <strong>not liable</strong> for incorrectly flagged music, removed tracks, or any changes to your Spotify library.</li>
+      <li>You authorise RealSongCheck to apply its own scoring methodology and <strong>definition of AI-generated music</strong> when analysing and acting on your library.</li>
+      <li>No action taken by RealSongCheck constitutes a verified statement of fact about any artist, label, or distributor.</li>
+      <li>You have read and agree to RealSongCheck's full <a href="/terms" target="_blank" style="color:#2d6a2d">Terms of Service</a> and <a href="/privacy" target="_blank" style="color:#2d6a2d">Privacy Policy</a>.</li>
+    </ul>
+    <div style="background:#fff8e1;border-radius:8px;padding:12px 16px;margin-bottom:20px;font-size:13px;color:#7c4a00;line-height:1.5">
+      <strong>⚠ This is a library management tool, not an infallible detection system.</strong> Use your own judgement before removing or blocking any content.
+    </div>
+    <div style="display:flex;gap:12px">
+      <button onclick="document.getElementById('consentModal').style.display='none'" style="flex:1;padding:12px;border:1px solid #ccc;border-radius:8px;background:#fff;font-size:14px;cursor:pointer;color:#666">Cancel</button>
+      <button onclick="acceptConsentAndConnect()" style="flex:2;padding:12px;border:none;border-radius:8px;background:#2d6a2d;color:#fff;font-size:14px;font-weight:700;cursor:pointer">I Understand — Connect Spotify</button>
+    </div>
+    <p style="font-size:11px;color:#999;margin:12px 0 0;text-align:center">By clicking "I Understand" you enter into a binding agreement under the Terms of Service.</p>
+  </div>
+</div>
 
 <header>
   <div class="logo" onclick="navTo('screen-landing','nav-home')">
@@ -2237,6 +2262,11 @@ function startSkipMonitor() {
 // Set this to your Railway URL when deployed, e.g. 'https://realsongcheck-production.up.railway.app'
 var BACKEND_URL = 'https://api.realsongcheck.com';
 function handleConnectClick() {
+  var modal = document.getElementById('consentModal');
+  modal.style.display = 'flex';
+}
+function acceptConsentAndConnect() {
+  document.getElementById('consentModal').style.display = 'none';
   window.location.href = BACKEND_URL + '/auth/login';
 }
 
@@ -3778,90 +3808,11 @@ function saveEditedPage() {
     ">&#8681; Save as file</button>
   </div>
 </div>
-<!--
-  ============================================================
-  CONSENT MODAL — shown before Spotify OAuth, must be agreed
-  Add this to index.html, shown when user clicks Connect
-  Replace handleConnectClick() to show this first
-  ============================================================
--->
 
-<div id="consentModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center">
-  <div style="background:#fff;border-radius:12px;max-width:560px;width:90%;padding:36px;font-family:Arial,sans-serif;max-height:80vh;overflow-y:auto">
-    <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:#2d6a2d;margin-bottom:8px">BEFORE YOU CONNECT</div>
-    <h2 style="font-size:20px;font-weight:700;color:#1a1a1a;margin:0 0 16px">Please read and agree to continue</h2>
-
-    <p style="font-size:14px;color:#333;line-height:1.6;margin-bottom:14px">
-      RealSongCheck uses an <strong>algorithmic scoring system</strong> to identify music that may be AI-generated.
-      Results are <strong>probabilistic opinions, not verified facts</strong>. The Service may flag music made by
-      human artists, and may miss AI-generated music. All results carry a risk of error.
-    </p>
-
-    <p style="font-size:14px;color:#333;line-height:1.6;margin-bottom:14px">
-      By connecting your Spotify account, you confirm that you understand and agree:
-    </p>
-
-    <ul style="font-size:13px;color:#333;line-height:1.8;margin:0 0 16px;padding-left:20px">
-      <li>Any tracks or artists removed, blocked, or flagged through this Service are <strong>removed at your own direction and at your own risk</strong>.</li>
-      <li>You accept full responsibility for all actions taken within your Spotify account through RealSongCheck.</li>
-      <li>RealSongCheck is <strong>not liable</strong> for incorrectly flagged music, removed tracks, or any changes to your Spotify library.</li>
-      <li>You authorise RealSongCheck to apply its own scoring methodology and <strong>definition of AI-generated music</strong> when analysing and acting on your library.</li>
-      <li>No action taken by RealSongCheck in your Spotify account constitutes a verified statement of fact about any artist, label, or distributor.</li>
-      <li>You have read and agree to RealSongCheck's full <a href="/terms" target="_blank" style="color:#2d6a2d">Terms of Service</a> and <a href="/privacy" target="_blank" style="color:#2d6a2d">Privacy Policy</a>.</li>
-    </ul>
-
-    <div style="background:#fff8e1;border-radius:8px;padding:12px 16px;margin-bottom:20px;font-size:13px;color:#7c4a00;line-height:1.5">
-      <strong>⚠ This is a library management tool, not an infallible detection system.</strong>
-      Use your own judgement before removing or blocking any content.
-    </div>
-
-    <div style="display:flex;gap:12px">
-      <button onclick="document.getElementById('consentModal').style.display='none'"
-        style="flex:1;padding:12px;border:1px solid #ccc;border-radius:8px;background:#fff;font-size:14px;cursor:pointer;color:#666">
-        Cancel
-      </button>
-      <button onclick="acceptConsentAndConnect()"
-        style="flex:2;padding:12px;border:none;border-radius:8px;background:#2d6a2d;color:#fff;font-size:14px;font-weight:700;cursor:pointer">
-        I Understand — Connect Spotify
-      </button>
-    </div>
-
-    <p style="font-size:11px;color:#999;margin:12px 0 0;text-align:center">
-      By clicking "I Understand" you enter into a binding agreement with RealSongCheck under the Terms of Service.
-    </p>
-  </div>
-</div>
-
-<!--
-  ============================================================
-  JAVASCRIPT — replace handleConnectClick with this
-  ============================================================
--->
-<script>
-function handleConnectClick() {
-  document.getElementById('consentModal').style.display = 'flex';
-}
-
-function acceptConsentAndConnect() {
-  document.getElementById('consentModal').style.display = 'none';
-  window.location.href = BACKEND_URL + '/auth/login';
-}
-</script>
-
-
-<!--
-  ============================================================
-  HOMEPAGE FOOTER DISCLAIMER — add to footer of index.html
-  ============================================================
--->
-<div style="border-top:1px solid rgba(0,0,0,0.08);margin-top:48px;padding-top:20px;font-size:11px;color:#999;line-height:1.7;max-width:760px;margin-left:auto;margin-right:auto;text-align:center">
-  RealSongCheck uses probabilistic algorithmic analysis to identify music that may be AI-generated.
-  All results are informational opinions, not verified facts. The Service may incorrectly flag human-made music
-  or fail to detect AI-generated music. All actions taken within your Spotify account are taken at your own direction
-  and responsibility. RealSongCheck is not affiliated with or endorsed by Spotify AB.
+<div style="border-top:1px solid rgba(0,0,0,0.08);padding:20px 24px;font-size:11px;color:#999;line-height:1.7;text-align:center">
+  RealSongCheck uses probabilistic algorithmic analysis to identify music that may be AI-generated. All results are informational opinions, not verified facts. Actions taken within your Spotify account are taken at your own direction and responsibility. Not affiliated with or endorsed by Spotify AB.
   &nbsp;·&nbsp; <a href="/terms" style="color:#999">Terms of Service</a>
   &nbsp;·&nbsp; <a href="/privacy" style="color:#999">Privacy Policy</a>
 </div>
-
 </body>
 </html>
