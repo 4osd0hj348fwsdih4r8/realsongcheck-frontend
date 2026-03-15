@@ -3,984 +3,267 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="color-scheme" content="light">
-<meta name="supported-color-schemes" content="light">
-<title>RealSongCheck. Your Spotify, without AI music.</title>
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
-<link rel="apple-touch-icon" href="/favicon-512.png">
+<title>Terms of Service — RealSongCheck</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-/* Force light mode on all browsers regardless of OS setting */
-:root { color-scheme: light only; }
-html, body, div, section, main, article, aside, header, footer, nav {
-  background-color: initial;
-}
-
 :root {
-  color-scheme: light only;
-  --bg:      #f5f4ef;
-  --surface: #ffffff;
-  --border:  #e2e0d9;
-  --text:    #141412;
-  --muted:   #636360;
-  --accent:  #4a8c00;
-  --danger:  #d93020;
-  --warn:    #b87000;
-  --safe:    #1a7a40;
+  --bg: #f5f4ef; --surface: #ffffff; --border: #e2e0d9;
+  --text: #141412; --muted: #636360; --accent: #4a8c00;
 }
-
-html { background: #f5f4ef !important; min-height: 100%; }
-body { background: #f5f4ef !important; color: #141412 !important; }
-html { background: #f5f4ef; }
 body {
-  background: #f5f4ef;
-  color: #141412;
-  font-family: 'Lato', sans-serif;
-  min-height: 100vh;
-  overflow-x: hidden;
+  background: var(--bg); color: var(--text);
+  font-family: 'Lato', sans-serif; min-height: 100vh;
+  line-height: 1.7;
 }
-
-/* ── NAV ─────────────────────────────────────────────────────────────────── */
-
-header {
+nav {
+  position: sticky; top: 0; background: var(--bg);
   border-bottom: 1px solid var(--border);
-  padding: 0 40px;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  background: #f5f4ef !important;
+  padding: 0 24px; height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
   z-index: 50;
 }
-
 .logo {
+  font-family: 'DM Serif Display', serif; font-size: 20px;
+  text-decoration: none; color: var(--text);
+  display: flex; align-items: center; gap: 8px;
+}
+.logo-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; }
+.logo span { color: var(--accent); font-style: italic; }
+.back-link {
+  font-size: 13px; color: var(--muted); text-decoration: none;
+  border: 1px solid var(--border); border-radius: 6px;
+  padding: 6px 14px; transition: all 0.15s;
+}
+.back-link:hover { color: var(--text); border-color: var(--text); }
+.container {
+  max-width: 760px; margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+.page-title {
   font-family: 'DM Serif Display', serif;
-  font-size: 20px;
-  cursor: pointer;
-  padding: 18px 0;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  color: var(--text);
-  letter-spacing: -0.3px;
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1.1; margin-bottom: 8px;
 }
-
-.logo-text { letter-spacing: -0.3px; line-height: 1; }
-.logo-accent { color: var(--accent); font-style: italic; }
-
-.logo-dot {
-  width: 8px;
-  height: 8px;
-  background: var(--accent);
-  border-radius: 50%;
-  animation: pulse 2s ease infinite;
-  flex-shrink: 0;
+.effective {
+  font-size: 13px; color: var(--muted); margin-bottom: 40px;
 }
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.5; transform: scale(0.8); }
+.notice {
+  background: #fff8e1; border: 1px solid #f0d060;
+  border-radius: 8px; padding: 16px 20px;
+  margin-bottom: 40px; font-size: 14px; color: #7c4a00;
+  line-height: 1.6;
 }
-
-nav { display: flex; align-items: center; gap: 2px; justify-content: center; }
-
-.nav-link {
-  padding: 8px 13px;
-  font-size: 13px;
-  color: var(--muted);
-  cursor: pointer;
-  border-radius: 4px;
-  transition: all 0.15s;
-  border: none;
-  background: none;
-  font-family: 'Lato', sans-serif;
-  text-decoration: none;
-  display: inline-block;
-}
-
-.nav-link:hover { color: var(--text); }
-
-.nav-right { display: flex; align-items: center; gap: 10px; justify-content: flex-end; }
-
-/* ── COMING SOON BAR (mid-page) ──────────────────────────────────────────── */
-
-.coming-soon-bar {
-  width: 100%;
-  max-width: 960px;
-  border-top: 1px solid var(--border);
-  padding: 72px 0;
-  text-align: center;
-}
-
-.coming-soon-inner {
-  border: 2px solid var(--text);
-  border-radius: 10px;
-  padding: 40px 48px;
-  background: var(--surface);
-}
-
-.coming-soon-label {
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 16px;
-}
-
-.coming-soon-title {
+.notice strong { display: block; margin-bottom: 4px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+h2 {
   font-family: 'DM Serif Display', serif;
-  font-size: clamp(32px, 5vw, 56px);
-  line-height: 1.08;
-  letter-spacing: -1px;
-  margin-bottom: 16px;
-  color: var(--text);
-}
-
-.coming-soon-title em {
-  color: var(--accent);
-  font-style: italic;
-}
-
-.coming-soon-sub {
-  font-size: 15px;
-  color: var(--muted);
-  max-width: 440px;
-  margin: 0 auto;
-  line-height: 1.7;
-}
-
-@media (max-width: 700px) {
-  .coming-soon-bar { padding: 48px 0; }
-  .coming-soon-inner { padding: 28px 22px; }
-}
-
-/* ── CHROME NOTICE ───────────────────────────────────────────────────────── */
-
-.chrome-notice {
-  background: rgba(74,140,0,0.07);
-  border: 1px solid rgba(74,140,0,0.25);
-  border-radius: 100px;
-  padding: 7px 18px;
-  font-size: 12px;
-  color: var(--accent);
-  margin-bottom: 20px;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-}
-
-/* ── LANDING ─────────────────────────────────────────────────────────────── */
-
-#screen-landing {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: calc(100vh - 61px);
-  text-align: center;
-  padding: 72px 40px 0;
-  background: #f5f4ef !important;
-}
-
-.hero-eyebrow {
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 20px;
-}
-
-.hero-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(40px, 5.5vw, 78px);
-  line-height: 1.04;
-  letter-spacing: -1.5px;
-  margin-bottom: 22px;
-  max-width: 740px;
-}
-
-.hero-title em.green  { color: var(--safe);   font-style: normal; }
-.hero-title em.red    { color: var(--danger);  font-style: italic; }
-
-.hero-sub {
-  font-size: 16px;
-  color: var(--muted);
-  max-width: 460px;
-  line-height: 1.75;
-  margin-bottom: 32px;
-}
-
-.hero-sub strong { color: var(--text); font-weight: 700; }
-
-.hero-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 48px;
-  gap: 12px;
-}
-
-.btn-primary {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  padding: 17px 38px;
-  font-family: 'Lato', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-}
-
-.btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); }
-
-.btn-primary.disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-.btn-secondary {
-  background: transparent;
-  color: var(--text);
-  border: 1px solid var(--border);
-  padding: 13px 26px;
-  font-family: 'Lato', sans-serif;
-  font-size: 13px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-decoration: none;
-  display: inline-block;
-}
-
-.btn-secondary:hover { border-color: var(--muted); }
-
-.launch-note {
-  font-size: 12px;
-  color: var(--muted);
-  font-style: italic;
-}
-
-.hero-stats-bar {
-  font-size: 14px;
-  color: var(--muted);
-  margin-bottom: 20px;
-}
-
-/* ── TICKER ──────────────────────────────────────────────────────────────── */
-
-.activity-ticker {
-  width: 100%;
-  border-top: 1px solid var(--border);
+  font-size: 22px; margin: 48px 0 12px;
+  padding-bottom: 8px;
   border-bottom: 1px solid var(--border);
-  padding: 11px 0;
-  overflow: hidden;
-  position: relative;
 }
-
-.activity-ticker::before,
-.activity-ticker::after {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 80px;
-  z-index: 2;
-  pointer-events: none;
+h3 {
+  font-size: 15px; font-weight: 700;
+  margin: 24px 0 8px; color: var(--accent);
 }
-
-.activity-ticker::before { left: 0;  background: linear-gradient(to right, var(--bg), transparent); }
-.activity-ticker::after  { right: 0; background: linear-gradient(to left,  var(--bg), transparent); }
-
-.ticker-inner {
-  display: flex;
-  animation: ticker 40s linear infinite;
-  width: max-content;
+p { font-size: 15px; color: #333; margin-bottom: 14px; }
+ul {
+  margin: 0 0 16px 0; padding-left: 20px;
 }
-
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+ul li {
+  font-size: 15px; color: #333;
+  margin-bottom: 8px; line-height: 1.6;
 }
-
-.ticker-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0 28px;
-  font-size: 12px;
-  color: var(--muted);
-  white-space: nowrap;
-  border-right: 1px solid var(--border);
-}
-
-.ticker-item .t-name    { color: var(--text); }
-.ticker-item .t-blocked { color: var(--danger); font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
-
-/* ── HOW IT WORKS ────────────────────────────────────────────────────────── */
-
-.how-section {
-  width: 100%;
-  max-width: 960px;
-  border-top: 1px solid var(--border);
-  padding: 72px 0 96px;
-  text-align: left;
-}
-
-.how-label {
-  font-size: 11px;
-  color: var(--accent);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  margin-bottom: 18px;
-}
-
-.how-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(26px, 3vw, 40px);
-  margin-bottom: 52px;
-  max-width: 500px;
-  line-height: 1.15;
-}
-
-.how-steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 36px;
-  margin-bottom: 52px;
-}
-
-.how-step-num {
-  font-family: 'DM Serif Display', serif;
-  font-size: 44px;
-  color: var(--border);
-  line-height: 1;
+.caps {
+  font-size: 14px; font-weight: 700;
+  color: var(--text); line-height: 1.6;
   margin-bottom: 14px;
 }
-
-.how-step-title {
-  font-size: 15px;
-  font-weight: 700;
-  margin-bottom: 9px;
+.divider {
+  border: none; border-top: 1px solid var(--border);
+  margin: 40px 0;
 }
-
-.how-step-desc {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.7;
-}
-
-.how-detail {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.how-detail-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 26px;
-}
-
-.how-detail-title {
-  font-size: 14px;
-  font-weight: 700;
-  margin-bottom: 7px;
-}
-
-.how-detail-desc {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.65;
-}
-
-.how-detail-desc strong { color: var(--text); }
-
-/* ── BLOCKLIST SECTION ───────────────────────────────────────────────────── */
-
-.blocklist-section {
-  width: 100%;
-  max-width: 960px;
-  border-top: 1px solid var(--border);
-  padding: 72px 0 96px;
-  text-align: left;
-}
-
-.blocklist-label {
-  font-size: 11px;
-  color: var(--accent);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  margin-bottom: 18px;
-}
-
-.blocklist-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(26px, 3vw, 40px);
-  margin-bottom: 20px;
-  max-width: 560px;
-  line-height: 1.15;
-}
-
-.blocklist-body {
-  font-size: 15px;
-  color: var(--muted);
-  line-height: 1.85;
-  max-width: 680px;
-}
-
-.blocklist-body p { margin-bottom: 18px; }
-.blocklist-body strong { color: var(--text); }
-
-.blocklist-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-  margin-top: 36px;
-  max-width: 680px;
-}
-
-.blocklist-stat {
-  background: var(--surface);
-  padding: 28px 24px;
-  text-align: center;
-}
-
-.blocklist-stat-num {
-  font-family: 'DM Serif Display', serif;
-  font-size: 42px;
-  line-height: 1;
-  color: var(--safe);
-  letter-spacing: -1px;
-  margin-bottom: 6px;
-}
-
-.blocklist-stat-label {
-  font-size: 11px;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-/* ── WAITLIST ─────────────────────────────────────────────────────────────── */
-
-.waitlist-section {
-  width: 100%;
-  max-width: 960px;
-  border-top: 1px solid var(--border);
-  padding: 72px 0 96px;
-}
-
-.waitlist-inner {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 48px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: center;
-}
-
-.waitlist-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(26px, 3vw, 38px);
-  margin-bottom: 14px;
-  line-height: 1.1;
-}
-
-.waitlist-sub {
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.7;
-}
-
-.waitlist-form { display: flex; flex-direction: column; gap: 10px; }
-
-.waitlist-input {
-  width: 100%;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  color: var(--text);
-  padding: 14px 18px;
-  font-family: 'Lato', sans-serif;
-  font-size: 14px;
-  border-radius: 5px;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.waitlist-input:focus { border-color: var(--accent); }
-.waitlist-input::placeholder { color: var(--muted); }
-
-.waitlist-confirm {
-  display: none;
-  background: rgba(26,122,64,0.07);
-  border: 1px solid rgba(26,122,64,0.2);
-  border-radius: 8px;
-  padding: 18px 20px;
-  font-size: 14px;
-  color: var(--safe);
-  line-height: 1.6;
-}
-
-.waitlist-legal {
-  font-size: 11px;
-  color: var(--muted);
-  line-height: 1.6;
-}
-
-/* ── FINE PRINT ──────────────────────────────────────────────────────────── */
-
-.landing-fine-print {
-  width: 100%;
-  max-width: 820px;
-  padding: 24px 40px 48px;
-  font-size: 10px;
-  line-height: 1.7;
-  color: var(--muted);
-  text-align: center;
-  opacity: 0.7;
-}
-
-/* ── ABOUT SECTION ───────────────────────────────────────────────────────── */
-
-.about-section {
-  width: 100%;
-  max-width: 960px;
-  border-top: 1px solid var(--border);
-}
-
-.about-wrap {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 72px 0 96px;
-}
-
-.about-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: 38px;
-  margin-bottom: 36px;
-  line-height: 1.1;
-}
-
-.about-body {
-  font-size: 16px;
-  line-height: 1.85;
-  color: var(--muted);
-}
-
-.about-body p { margin-bottom: 22px; }
-.about-body strong { color: var(--text); font-weight: 700; }
-.about-body h3 {
-  font-family: 'DM Serif Display', serif;
-  font-size: 22px;
-  color: var(--text);
-  margin: 36px 0 14px;
-}
-
-/* ── FOOTER ──────────────────────────────────────────────────────────────── */
-
 footer {
   border-top: 1px solid var(--border);
-  padding: 28px 40px;
-  background: #f5f4ef !important;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 12px;
-  color: var(--muted);
-  flex-wrap: wrap;
-  gap: 12px;
+  padding: 24px; text-align: center;
+  font-size: 12px; color: var(--muted);
 }
-
-footer a { color: var(--muted); text-decoration: none; }
-footer a:hover { color: var(--text); }
-
-/* ── SCREENS ─────────────────────────────────────────────────────────────── */
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── MOBILE NAV ──────────────────────────────────────────────────────────── */
-
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 4px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 8px;
-  border-radius: 4px;
-}
-
-.hamburger span {
-  display: block;
-  width: 20px;
-  height: 2px;
-  background: var(--text);
-  border-radius: 2px;
-  transition: all 0.2s;
-}
-
-.hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-.hamburger.open span:nth-child(2) { opacity: 0; }
-.hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-
-.mobile-nav-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-  z-index: 40;
-}
-
-.mobile-nav {
-  position: fixed;
-  top: 0; right: 0; bottom: 0;
-  width: 240px;
-  background: var(--bg);
-  border-left: 1px solid var(--border);
-  z-index: 45;
-  padding: 20px 0;
-  transform: translateX(100%);
-  transition: transform 0.25s ease;
-  visibility: hidden;
-}
-
-.mobile-nav.open { transform: translateX(0); visibility: visible; }
-.mobile-nav-overlay.open { display: block; }
-
-.mobile-nav-link {
-  display: block;
-  padding: 14px 20px;
-  font-size: 15px;
-  color: var(--muted);
-  cursor: pointer;
-  border: none;
-  background: none;
-  font-family: 'Lato', sans-serif;
-  width: 100%;
-  text-align: left;
-  transition: all 0.15s;
-}
-
-.mobile-nav-link:hover { color: var(--text); background: var(--surface); }
-
-/* ── RESPONSIVE ──────────────────────────────────────────────────────────── */
-
-@media (max-width: 700px) {
-  header { padding: 0 18px; }
-  nav { display: none; }
-  .hamburger { display: flex; }
-  .coming-soon-bar { padding: 12px 18px; font-size: 16px; }
-  #screen-landing { padding: 40px 22px 0; justify-content: flex-start; }
-  .hero-title { font-size: clamp(34px, 9vw, 52px); }
-  .hero-sub { font-size: 15px; max-width: 100%; }
-  .hero-actions .btn-primary { width: 100%; justify-content: center; }
-  .how-section { padding: 48px 0 60px; }
-  .how-steps { grid-template-columns: 1fr; gap: 28px; }
-  .how-detail { grid-template-columns: 1fr; }
-  .blocklist-section { padding: 48px 0 60px; }
-  .blocklist-stats { grid-template-columns: 1fr; }
-  .waitlist-section { padding: 48px 0 60px; }
-  .waitlist-inner { grid-template-columns: 1fr; gap: 28px; padding: 28px 24px; }
-  .landing-fine-print { padding: 18px 22px 40px; }
-  footer { flex-direction: column; align-items: flex-start; padding: 22px 18px; }
-  .about-wrap { padding: 40px 0; }
-  .about-title { font-size: 30px; }
-}
+footer a { color: var(--muted); }
 </style>
 </head>
 <body>
+<nav>
+  <a class="logo" href="/"><div class="logo-dot"></div>Real<span>Song</span>Check</a>
+  <a class="back-link" href="/">← Back to app</a>
+</nav>
 
-<!-- MOBILE NAV -->
-<div class="mobile-nav-overlay" id="mobileOverlay" onclick="closeMobileNav()"></div>
-<div class="mobile-nav" id="mobileNav">
-  <button class="mobile-nav-link" onclick="window.scrollTo({top:0,behavior:'smooth'}); closeMobileNav()">Home</button>
-  <button class="mobile-nav-link" onclick="scrollToAbout(); closeMobileNav()">About</button>
-  <button class="mobile-nav-link" onclick="scrollToWaitlist(); closeMobileNav()">Join waitlist</button>
-</div>
+<div class="container">
+  <p class="effective">Terms of Service</p>
+  <h1 class="page-title">Terms of Service</h1>
+  <p class="effective">Effective Date: March 1, 2026</p>
 
-<!-- HEADER -->
-<header>
-  <a class="logo" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">
-    <div class="logo-dot"></div><span class="logo-text">Real<span class="logo-accent">Song</span>Check</span>
-  </a>
-  <nav>
-    <a class="nav-link" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">Home</a>
-    <a class="nav-link" href="#" onclick="scrollToAbout(); return false;">About</a>
-    <a class="nav-link" href="#" onclick="scrollToWaitlist(); return false;">Join waitlist</a>
-  </nav>
-  <div class="nav-right">
-    <button class="hamburger" id="hamburger" onclick="openMobileNav()">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
-
-<!-- LANDING -->
-<div id="screen-landing">
-
-  <div class="chrome-notice">Currently only works on Chrome or Edge, on a computer.</div>
-  <p class="hero-eyebrow">Chrome Extension for Spotify</p>
-  <h1 class="hero-title">Your <em class="green">playlists,</em><br>without <em class="red">AI music.</em></h1>
-  <p class="hero-sub">
-    Install the extension, open Spotify in your browser, and we scan your library against our blocklist of confirmed AI artists. Anything that matches gets removed.
-  </p>
-
-  <div class="hero-stats-bar">
-    <span id="signupCount" style="font-weight:700;color:var(--text)">—</span> people on the waitlist
+  <div class="notice">
+    <strong>Important — Please Read Carefully</strong>
+    These Terms constitute a legally binding agreement. By connecting your Spotify account or using any part of the Service, you agree to be bound by these Terms in full.
   </div>
 
-  <div class="hero-actions">
-    <button class="btn-primary disabled">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-      Get the extension (coming soon)
-    </button>
-    <p class="launch-note">Join the waitlist to hear when we launch.</p>
-  </div>
+  <p class="caps">BY CLICKING "I UNDERSTAND — CONNECT SPOTIFY," YOU ACKNOWLEDGE THAT YOU HAVE READ, UNDERSTOOD, AND AGREED TO THESE TERMS, INCLUDING THE DISCLAIMERS, LIMITATIONS OF LIABILITY, AND INDEMNIFICATION PROVISIONS BELOW.</p>
 
-  <div class="activity-ticker">
-    <div class="ticker-inner" id="tickerInner"></div>
-  </div>
+  <hr class="divider">
 
-  <div class="how-section">
-    <div class="how-label">How it works</div>
-    <h2 class="how-title">Three steps. No account needed.</h2>
-    <div class="how-steps">
-      <div class="how-step">
-        <div class="how-step-num">01</div>
-        <div class="how-step-title">Install the extension</div>
-        <div class="how-step-desc">One click from the Chrome Web Store. Works on Chrome and Edge. No signup, no password, nothing to create.</div>
-      </div>
-      <div class="how-step">
-        <div class="how-step-num">02</div>
-        <div class="how-step-title">Open Spotify in your browser</div>
-        <div class="how-step-desc">Go to open.spotify.com and log in as normal. The extension detects your session automatically. Nothing extra to click.</div>
-      </div>
-      <div class="how-step">
-        <div class="how-step-num">03</div>
-        <div class="how-step-title">We clean your library</div>
-        <div class="how-step-desc">Your liked songs get scanned against our blocklist of confirmed AI artists. Anything that matches is removed. Run it again any time.</div>
-      </div>
-    </div>
+  <h2>1. Description of Service</h2>
+  <p>RealSongCheck is a user-directed music library management tool. The Service analyses the contents of your personal Spotify library using algorithmic scoring methods and presents results to you. You then choose what actions, if any, to take. RealSongCheck does not make decisions on your behalf without your explicit authorisation.</p>
+  <p>The Service provides:</p>
+  <ul>
+    <li>Probabilistic algorithmic analysis of tracks in your Spotify library</li>
+    <li>A risk score and supporting signals for each track, presented as informational output</li>
+    <li>Tools enabling you to remove, flag, trust, or block tracks and artists within your own Spotify account</li>
+    <li>Optional automated actions that you explicitly enable, including automatic removal of high-risk tracks</li>
+  </ul>
+  <p>All actions taken within your Spotify account are taken at your direction and on your behalf. RealSongCheck acts as your agent in executing actions you have authorised.</p>
 
-    <div class="how-detail">
-      <div class="how-detail-card">
-        
-        <div class="how-detail-title">What gets removed</div>
-        <div class="how-detail-desc">Any saved track whose artist appears on our blocklist of confirmed AI artists. The list is updated daily as new AI accounts are found.</div>
-      </div>
-      <div class="how-detail-card">
-        
-        <div class="how-detail-title">No special login required</div>
-        <div class="how-detail-desc">The extension reads your existing Spotify browser session. <strong>We never ask you to grant OAuth permissions to a registered app.</strong> Your Spotify password never leaves Spotify.</div>
-      </div>
-      <div class="how-detail-card">
-        
-        <div class="how-detail-title">Run it whenever you want</div>
-        <div class="how-detail-desc">The blocklist updates as new AI artists are found. Run the scan again at any point and anything added to the list since last time gets caught.</div>
-      </div>
-      <div class="how-detail-card">
-        
-        <div class="how-detail-title">False positives</div>
-        <div class="how-detail-desc">If a real artist gets removed by mistake, restore them from your Spotify history and report it to us. We review every report and update the blocklist accordingly.</div>
-      </div>
-    </div>
-  </div>
+  <hr class="divider">
 
-  <div class="blocklist-section">
-    <div class="blocklist-label">The blocklist</div>
-    <h2 class="blocklist-title">Thousands of confirmed AI artists, maintained by the community.</h2>
-    <div class="blocklist-body">
-      <p>The blocklist covers thousands of confirmed AI artist accounts on Spotify. We update it daily as new AI accounts are found and verified.</p>
-      <p>We run detection checks on top of the list. Any Spotify account distributing through a known AI generation platform gets flagged automatically. Artists with an inhuman release rate, like 20 albums in 90 days, get added too.</p>
-      <p>The list will never be complete. AI accounts get created faster than anyone can track them. But we cover a large proportion of what is currently live on the platform.</p>
-    </div>
-    <div class="blocklist-stats">
-      <div class="blocklist-stat">
-        <div class="blocklist-stat-num" id="statArtists">3,300+</div>
-        <div class="blocklist-stat-label">AI artists blocked</div>
-      </div>
-      <div class="blocklist-stat">
-        <div class="blocklist-stat-num">Daily</div>
-        <div class="blocklist-stat-label">Blocklist updates</div>
-      </div>
-      <div class="blocklist-stat">
-        <div class="blocklist-stat-num">Free</div>
-        <div class="blocklist-stat-label">Always</div>
-      </div>
-    </div>
-  </div>
+  <h2>2. Probabilistic Nature of Results — No Guarantee of Accuracy</h2>
+  <p class="caps">THE SERVICE DOES NOT AND CANNOT GUARANTEE THAT ANY TRACK OR ARTIST FLAGGED BY THE SERVICE IS AI-GENERATED, OR THAT ANY TRACK OR ARTIST CLEARED BY THE SERVICE IS HUMAN-MADE.</p>
+  <p>All scores, flags, risk ratings, and classifications produced by RealSongCheck are:</p>
+  <ul>
+    <li>Probabilistic algorithmic opinions, not verified facts</li>
+    <li>Based on indirect signals including but not limited to: distributor information, release patterns, artist metadata, track naming conventions, and other observable data</li>
+    <li>Subject to error, including both false positives (human-made content incorrectly flagged) and false negatives (AI-generated content not detected)</li>
+    <li>Not representations of fact about any artist, label, distributor, or rights holder</li>
+  </ul>
+  <p>You acknowledge and accept that the Service may flag music created by human artists. You understand that acting on these results — including removing tracks from your library — is your own decision and carries the risk of affecting music you may wish to keep.</p>
 
-  <div class="waitlist-section" id="waitlist-section">
-    <div class="waitlist-inner">
-      <div>
-        <h2 class="waitlist-title">Get notified when we launch.</h2>
-        <p class="waitlist-sub">The extension is in development. Leave your email and we'll send one message when it's ready. No spam, nothing else.</p>
-      </div>
-      <div>
-        <form class="waitlist-form" onsubmit="handleWaitlist(event)">
-          <input
-            class="waitlist-input"
-            type="email"
-            id="waitlistEmail"
-            placeholder="your@email.com"
-            required
-          >
-          <button class="btn-primary" type="submit" id="waitlistBtn">
-            Join the waitlist
-          </button>
-          <p class="waitlist-legal">No spam. One email when we launch. Unsubscribe at any time.</p>
-        </form>
-        <div class="waitlist-confirm" id="waitlistConfirm">
-          You're on the list. We'll email you when the extension is ready.
-        </div>
-      </div>
-    </div>
-  </div>
+  <hr class="divider">
 
-  <div class="coming-soon-bar">
-    <div class="coming-soon-inner">
-      <p class="coming-soon-label">Status</p>
-      <h2 class="coming-soon-title"><em>Coming soon.</em></h2>
-      <p class="coming-soon-sub">The extension is in development. Join the waitlist above and we'll email you when it's ready.</p>
-    </div>
-  </div>
+  <h2>3. User-Directed Actions and Your Responsibility</h2>
+  <h3>3.1 You Are the Decision-Maker</h3>
+  <p>Every action taken within your Spotify account through RealSongCheck is a user-directed action. You retain full control and responsibility for:</p>
+  <ul>
+    <li>Which tracks and artists are removed from your library</li>
+    <li>Which distributors, labels, and artists are added to your personal or global block lists</li>
+    <li>Enabling or disabling automated features such as auto-removal or auto-skip</li>
+    <li>Any and all consequences of actions taken through the Service</li>
+  </ul>
+  <h3>3.2 Authorisation of Automated Features</h3>
+  <p>If you enable automated features (such as automatic removal of high-risk tracks), you are explicitly authorising RealSongCheck to perform those actions on your behalf within your Spotify account, subject to the risk thresholds you have set or accepted. You understand that automated actions may affect tracks before you have individually reviewed them.</p>
+  <h3>3.3 Your Acceptance of RealSongCheck's Scoring Methodology</h3>
+  <p>By using the Service, you acknowledge and agree that:</p>
+  <ul>
+    <li>RealSongCheck applies its own proprietary scoring methodology to evaluate tracks in your library</li>
+    <li>You authorise RealSongCheck to apply this methodology on your behalf when performing actions in your Spotify account</li>
+    <li>The categories, thresholds, and definitions used by the Service — including the definition of what constitutes "AI-generated music" for the purposes of the Service — are determined by RealSongCheck at its sole discretion</li>
+    <li>You accept these definitions and methodologies as the basis on which the Service operates, while retaining the right to review, override, or ignore any individual result</li>
+  </ul>
 
-  <div class="about-section" id="about-section">
-    <div class="about-wrap">
-      <h2 class="about-title">About</h2>
-      <div class="about-body">
+  <hr class="divider">
 
-        <p>Spotify is overwhelmed by AI-generated music. Tracks produced by AI tools are being uploaded to the platform faster than it can handle, flooding recommendations, showing up in Discover Weekly, and ending up saved in people's libraries without them knowing.</p>
+  <h2>4. No Liability for Third-Party Content or Accounts</h2>
+  <h3>4.1 Artist and Rights Holder Claims</h3>
+  <p>RealSongCheck does not publish, distribute, or make available any artist's music. The Service only helps you manage your own personal Spotify library — content you have already saved or liked. The Service does not:</p>
+  <ul>
+    <li>Remove music from Spotify or any streaming platform</li>
+    <li>Make any public statement about any artist, label, or distributor</li>
+    <li>Publish or share any classification or flag beyond your personal account</li>
+    <li>Interfere with any artist's ability to distribute, monetise, or make available their music</li>
+  </ul>
+  <p>Any action taken through the Service affects only your personal library. An artist, label, or distributor cannot bring a claim against RealSongCheck arising from a user's personal decision to remove a track from their own saved library, as such actions fall entirely within the user's own rights as a Spotify subscriber.</p>
+  <h3>4.2 Spotify Account</h3>
+  <p>RealSongCheck is an independent tool and is not affiliated with or approved by Spotify. It works by interacting with your Spotify session in ways that fall outside Spotify's official API. This is uncharted territory and we cannot guarantee Spotify will not change their technical or legal position on tools like ours in the future. We take on that uncertainty so you don't have to, but we cannot accept liability for any disruption to your Spotify account arising from your use of this service.</p>
 
-        <p>Spotify calls this content PFC, or Programmatically Functional Content. They are aware it exists. At the moment, they have not been able to give users a way to filter it out.</p>
+  <p>RealSongCheck is not affiliated with, endorsed by, or in any way officially connected with Spotify AB. Your use of RealSongCheck is subject to Spotify's own Terms of Service. We are not responsible for:</p>
+  <ul>
+    <li>Changes to Spotify's API, terms, or service that affect the functionality of RealSongCheck</li>
+    <li>Any suspension, restriction, or termination of your Spotify account, regardless of cause</li>
+    <li>Any data loss, playback issues, playlist changes, or other effects within your Spotify account</li>
+    <li>Any failure of Spotify's systems or our integration with them</li>
+  </ul>
 
-        <p>RealSongCheck is a Chrome extension that fills that gap. Install it, open Spotify in your browser, and it scans your library against our blocklist of confirmed AI artists. Anything that matches gets removed.</p>
+  <hr class="divider">
 
-        <h3>How we know what's AI</h3>
+  <h2>5. Disclaimer of Warranties</h2>
+  <p class="caps">THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. TO THE FULLEST EXTENT PERMITTED BY LAW, REALSONGCHECK EXPRESSLY DISCLAIMS ALL WARRANTIES, INCLUDING BUT NOT LIMITED TO:</p>
+  <ul>
+    <li>Implied warranties of merchantability, fitness for a particular purpose, and non-infringement</li>
+    <li>Any warranty that the Service will be uninterrupted, timely, secure, or error-free</li>
+    <li>Any warranty regarding the accuracy, completeness, or reliability of any results, scores, flags, or classifications produced by the Service</li>
+    <li>Any warranty that the Service will detect all AI-generated music, or that it will not flag human-made music</li>
+  </ul>
+  <p class="caps">YOU ASSUME ALL RISK ARISING FROM YOUR USE OF THE SERVICE AND ANY ACTIONS YOU TAKE BASED ON ITS OUTPUT.</p>
 
-        <p>We maintain a blocklist of thousands of confirmed AI artist accounts on Spotify, updated daily. On top of that, we automatically identify artists who distribute exclusively through AI music generation platforms, and flag accounts with release rates no human artist could sustain.</p>
+  <hr class="divider">
 
-        <p>The detection will miss things. New AI accounts are created faster than anyone can track them. What we catch covers a large proportion of what is currently live on the platform.</p>
+  <h2>6. Limitation of Liability</h2>
+  <p class="caps">TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, REALSONGCHECK AND ITS OWNERS, OPERATORS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES ARISING OUT OF OR RELATED TO YOUR USE OF THE SERVICE, INCLUDING BUT NOT LIMITED TO:</p>
+  <ul>
+    <li>Loss of data, including tracks, playlists, or library content removed through the Service</li>
+    <li>Loss of access to, or changes in, your Spotify account</li>
+    <li>Emotional distress arising from the removal of content from your library</li>
+    <li>Any claim by a third party including artists, labels, or distributors arising from your use of the Service</li>
+    <li>Any business losses, loss of revenue, or loss of goodwill</li>
+  </ul>
+  <p class="caps">IN NO EVENT SHALL REALSONGCHECK'S TOTAL AGGREGATE LIABILITY TO YOU EXCEED THE GREATER OF: (A) THE TOTAL AMOUNT YOU PAID TO REALSONGCHECK IN THE TWELVE MONTHS PRECEDING THE CLAIM, OR (B) ONE HUNDRED POUNDS STERLING (£100).</p>
 
-        <h3>Why a Chrome extension</h3>
+  <hr class="divider">
 
-        <p>A Chrome extension is currently the only way we are permitted to offer this service. If that changes, we will upgrade accordingly.</p>
+  <h2>7. Indemnification</h2>
+  <p>You agree to indemnify, defend, and hold harmless RealSongCheck and its owners, operators, employees, affiliates, and agents from and against any and all claims, damages, losses, costs, and expenses (including reasonable legal fees) arising out of or relating to:</p>
+  <ul>
+    <li>Your use of the Service</li>
+    <li>Any actions taken within your Spotify account through or as a result of the Service</li>
+    <li>Your violation of these Terms</li>
+    <li>Any claim by a third party arising from actions you have taken using the Service, including any claim by an artist, label, or distributor whose music was removed from your library</li>
+    <li>Your violation of any third-party rights, including Spotify's Terms of Service</li>
+  </ul>
 
-        <p>To report a false positive or get in touch: <a href="/cdn-cgi/l/email-protection#d3bbb6bfbfbc93a1b6b2bfa0bcbdb4b0bbb6b0b8fdb0bcbe" style="color:var(--accent)"><span class="__cf_email__" data-cfemail="caa2afa6a6a58ab8afaba6b9a5a4ada9a2afa9a1e4a9a5a7">[email&#160;protected]</span></a></p>
+  <hr class="divider">
 
-      </div>
-    </div>
-  </div>
+  <h2>8. Acceptable Use</h2>
+  <p>You agree not to use the Service to:</p>
+  <ul>
+    <li>Violate any applicable law or regulation</li>
+    <li>Circumvent, disable, or interfere with any security feature of the Service</li>
+    <li>Use the Service in any way that could damage, disable, overburden, or impair it</li>
+    <li>Attempt to gain unauthorised access to any part of the Service or its systems</li>
+    <li>Use the Service for any commercial purpose without our written consent</li>
+  </ul>
+  <p>We reserve the right to suspend or terminate your access to the Service at any time, with or without cause and with or without notice.</p>
 
-  <div class="landing-fine-print">
-    By using RealSongCheck you acknowledge that AI detection is not 100% accurate, false positives can and do occur, and you take sole responsibility for any tracks removed from your library. All removed tracks can be restored from your Spotify history. RealSongCheck is an independent service and is not affiliated with, endorsed by, or in any way connected to Spotify AB. Use of this service remains subject to Spotify's own terms of service. RealSongCheck accepts no liability for any incorrect track removals or service unavailability. &nbsp;·&nbsp; <a href="/privacy" style="font-size:10px;color:inherit;text-decoration:underline">Privacy Policy</a> &nbsp;·&nbsp; <a href="/terms" style="font-size:10px;color:inherit;text-decoration:underline">Terms</a>
-  </div>
+  <hr class="divider">
 
+  <h2>9. Privacy</h2>
+  <p>Your use of the Service is also governed by our <a href="/privacy" style="color:var(--accent)">Privacy Policy</a>. By using the Service, you consent to the collection and use of your data as described there.</p>
+
+  <hr class="divider">
+
+  <h2>10. Modifications to Terms</h2>
+  <p>We reserve the right to modify these Terms at any time. If we make material changes, we will notify you by updating the effective date at the top of this document. Your continued use of the Service after changes are posted constitutes your acceptance of the modified Terms.</p>
+
+  <hr class="divider">
+
+  <h2>11. Governing Law and Dispute Resolution</h2>
+  <p>These Terms shall be governed by and construed in accordance with the laws of England and Wales. Any dispute arising out of or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts of England and Wales.</p>
+  <p>You agree that any claim arising from your use of the Service must be brought within one (1) year of the event giving rise to the claim, or be permanently barred.</p>
+
+  <hr class="divider">
+
+  <h2>12. Severability</h2>
+  <p>If any provision of these Terms is found to be unenforceable or invalid, that provision will be limited or eliminated to the minimum extent necessary, and the remaining provisions will remain in full force and effect.</p>
+
+  <hr class="divider">
+
+  <h2>13. Entire Agreement</h2>
+  <p>These Terms, together with the Privacy Policy, constitute the entire agreement between you and RealSongCheck with respect to the Service and supersede all prior agreements and understandings.</p>
+
+  <hr class="divider">
+
+  <h2>14. Contact</h2>
+  <p>For questions about these Terms, contact us at: <a href="/cdn-cgi/l/email-protection#dfb3bab8beb39fadbabeb3acb0b1b8bcb7babcb4f1bcb0b2" style="color:var(--accent)"><span class="__cf_email__" data-cfemail="b7dbd2d0d6dbf7c5d2d6dbc4d8d9d0d4dfd2d4dc99d4d8da">[email&#160;protected]</span></a></p>
 </div>
 
 <footer>
-  <span>RealSongCheck. Not affiliated with Spotify.</span>
-  <span style="display:flex;gap:16px;flex-wrap:wrap;">
-    <a href="#" onclick="scrollToAbout(); return false;">About</a>
-    <a href="/privacy">Privacy</a>
-    <a href="/terms">Terms</a>
-  </span>
+  <p>© 2026 RealSongCheck. All rights reserved.</p>
 </footer>
-
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-'use strict';
-
-var BACKEND_URL = 'https://api.realsongcheck.com';
-
-function scrollToSection(id, block) {
-  window.scrollTo(0, 0);
-  setTimeout(function() {
-    var el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: block || 'start' });
-  }, 80);
-}
-
-function scrollToWaitlist() {
-  scrollToSection('waitlist-section', 'center');
-}
-
-function scrollToAbout() {
-  scrollToSection('about-section', 'start');
-}
-
-function openMobileNav() {
-  document.getElementById('mobileNav').classList.add('open');
-  document.getElementById('mobileOverlay').classList.add('open');
-  document.getElementById('hamburger').classList.add('open');
-}
-
-function closeMobileNav() {
-  document.getElementById('mobileNav').classList.remove('open');
-  document.getElementById('mobileOverlay').classList.remove('open');
-  document.getElementById('hamburger').classList.remove('open');
-}
-
-// Ticker
-var TICKER_ITEMS = [
-  'Serenity Sounds Co.', 'Focus Beats Studio', 'Lo-Fi Collective',
-  'Sleep Wave Audio', 'Ambient Brain Lab', 'Study Music Project',
-  'Calm Depths Records', 'Neural Drift Sounds', 'Healing Frequency Works',
-  'White Noise Studio', 'Piano Covers Media', 'Rain Sounds Collective',
-  'Binaural Beat Lab', 'Nature Sounds Works', 'Mindful Audio Co.',
-];
-
-(function buildTicker() {
-  var inner = document.getElementById('tickerInner');
-  if (!inner) return;
-  var doubled = TICKER_ITEMS.concat(TICKER_ITEMS);
-  inner.innerHTML = doubled.map(function(name) {
-    return '<div class="ticker-item"><span class="t-name">' + name + '</span><span class="t-blocked">blocked</span></div>';
-  }).join('');
-})();
-
-// Waitlist
-function handleWaitlist(e) {
-  e.preventDefault();
-  var email = document.getElementById('waitlistEmail').value.trim();
-  var btn   = document.getElementById('waitlistBtn');
-  if (!email) return;
-
-  btn.textContent  = 'Joining...';
-  btn.style.opacity = '0.6';
-
-  fetch(BACKEND_URL + '/api/waitlist', {
-    method:  'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body:    JSON.stringify({ email: email }),
-  })
-  .finally(function() {
-    document.querySelector('.waitlist-form').style.display = 'none';
-    document.getElementById('waitlistConfirm').style.display = 'block';
-  });
-}
-
-// Live blocklist count
-fetch(BACKEND_URL + '/api/stats')
-  .then(function(r) { return
+</body>
+</html>
